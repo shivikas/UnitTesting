@@ -26,8 +26,52 @@ public class TestUtils {
 	@Test
 	public void testReverse2(){
 
-		
+		System.out.println("when offset value is -ve");
+
 	}
+
+	@Test
+	public void testReverse3(){
+
+		System.out.println("when length is 0");
+
+	}
+
+	@Test
+	public void testReverse4(){
+
+		System.out.println("when length is -ve");
+
+	}
+
+	@Test
+	public void testReverse5(){
+
+		System.out.println("when empty array is passed");
+
+	}
+
+	@Test
+	public void testReverse6(){
+
+		System.out.println("when array with 1 element is passed");
+
+	}
+
+	@Test
+	public void testReverse7(){
+
+		System.out.println("when array with null pointer is passed");
+
+	}
+
+	@Test
+	public void testReverse8(){
+
+		System.out.println("when array is shorter than the length passed");
+
+	}
+
 
 }
 
