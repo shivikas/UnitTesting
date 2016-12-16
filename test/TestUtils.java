@@ -1,6 +1,8 @@
 package test;
 import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 import static org.junit.Assert.*;
 import src.Utils;
 import java.util.*;
@@ -11,18 +13,16 @@ public class TestUtils {
 	@Test
 	public void testReverseByteArray(){
 		
-		final byte[] arr = {23,44,56,78,92,11,101};
-		int len, offset;
-		len = arr.length;
-		offset = 0;
+		final byte[] arr = {'a','c','b','t','n','g'};
+		int len = 6;
+		int offset = 0;
 
 		Utils ut = new Utils();
 		
-		final byte[] expectedArr = {101,11,92,78,56,44,23};
+		final byte[] expectedArr = {'g','n','t','b','c','a'};
 		
 		ut.reverse(arr, offset, len);
 		//System.out.println("This is array:"+Arrays.toString(arr));
-
 		assertTrue("Actual reversed array is different from Expected Array",Arrays.equals(expectedArr, arr));
 
 	}
@@ -31,47 +31,75 @@ public class TestUtils {
 	@Test
 	public void testReverseByteArrayError(){
 
-		final byte[] arr = {23,44,56,78,92,11,101};
-		int len, offset;
-		len = arr.length;
-		offset = 0;
+		final byte[] arr = {'a','t','c','n','g','g','t','c','a','t'};
+		int len = 10;
+		int offset = 0;
 
 		Utils ut = new Utils();
 		
-		final byte[] expectedArr = {101,11,92,78,56,44,23,6};  //Wrong array
+		final byte[] expectedArr = {'t','a','c','t','g','a','n','c','t','g'};  //Wrong array
 		
 		ut.reverse(arr, offset, len);
-		//System.out.println("This is array:"+Arrays.toString(arr));
-
+		
 		assertFalse("Reverse array is supposed to be different from expected array.",Arrays.equals(expectedArr, arr));
 	
 	}
 
 	
 	@Test
-	public void testReverseWithNoLength(){
+	public void testReverseWithZeroLength(){
 
 		final byte[] arr = {'a','c','t','g','n','c','t','t','g','n','a','c','t','g'};
-		int len, offset;
-		len = 0;
-		offset = 0;
+		int len = 0;
+		int	offset = 0;
 
 		Utils ut = new Utils();
 		
-		final byte[] expectedArr = {}; 
-		
-		ut.reverse(arr, offset, len);
-		System.out.println("This is array:"+Arrays.toString(arr));
+		//With (len=0) the expected array will be same as an actual array passed.
+		final byte[] expectedArr = {'a','c','t','g','n','c','t','t','g','n','a','c','t','g'}; 
 
-		assertTrue("Length provided is 0.",Arrays.equals(expectedArr, arr));
+		ut.reverse(arr, offset, len);
+		
+		assertTrue("Expected Array is not same as passed array.",Arrays.equals(expectedArr, arr));
 	
 	}
 
-	@Ignore("not ready yet")
-	@Test
-	public void testReverse4(){
+	@Rule
+		public ExpectedException thrown = ExpectedException.none();
 
-		System.out.println("when length is -ve");
+	@Test
+	public void testReverseWhenArrayShorterThenLen(){
+
+		final byte[] arr = {'a', 'c', 'g', 't', 'n'};
+		int len = 6;
+		int offset = 0;
+
+		Utils ut = new Utils();
+
+		final byte[] expectedArr = {};
+		System.out.println("Printing array before calling reverse function"+Arrays.toString(arr));
+		thrown.expect(ArrayIndexOutOfBoundsException.class);
+		thrown.expectMessage("Array length is shorter than length argument. It will throw Index Out of bound exception");
+		ut.reverse(arr, offset, len);
+		assertTrue("You are passing a -ve length",Arrays.equals(expectedArr, arr));
+
+	}
+
+	@Ignore
+	@Test
+	public void testReverseWithNegLength(){
+
+		final byte[] arr = {'a', 'c', 'g', 't', 'n'};
+		int len = 6;
+		int offset = 0;
+
+		Utils ut = new Utils();
+
+		final byte[] expectedArr = {};
+		System.out.println("Printing array before calling reverse function"+Arrays.toString(arr));
+		ut.reverse(arr, offset, len);
+		System.out.println("This is with len=-3 array:"+Arrays.toString(arr));
+		assertTrue("You are passing a -ve length",Arrays.equals(expectedArr, arr));
 
 	}
 
