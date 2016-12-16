@@ -10,6 +10,9 @@ import java.util.*;
 
 public class TestUtils {
 
+	@Rule
+		public ExpectedException thrown = ExpectedException.none();
+
 	@Test
 	public void testReverseByteArray(){
 		
@@ -64,25 +67,21 @@ public class TestUtils {
 	
 	}
 
-	@Rule
-		public ExpectedException thrown = ExpectedException.none();
-
+	
 	@Test
 	public void testReverseWhenArrayShorterThenLen(){
-
+		thrown.expect(ArrayIndexOutOfBoundsException.class);
+		thrown.expectMessage("Actual array length is 5. But array length passes is 6");
+		
 		final byte[] arr = {'a', 'c', 'g', 't', 'n'};
 		int len = 6;
 		int offset = 0;
-
 		Utils ut = new Utils();
-
-		final byte[] expectedArr = {};
-		System.out.println("Printing array before calling reverse function"+Arrays.toString(arr));
-		thrown.expect(ArrayIndexOutOfBoundsException.class);
-		thrown.expectMessage("Array length is shorter than length argument. It will throw Index Out of bound exception");
+		//System.out.println("Printing array before calling reverse function"+Arrays.toString(arr));
 		ut.reverse(arr, offset, len);
-		assertTrue("You are passing a -ve length",Arrays.equals(expectedArr, arr));
-
+		thrown.expect(ArrayIndexOutOfBoundsException.class);
+		thrown.expectMessage("Actual array length is 5. But array length passes is 6");
+		
 	}
 
 	@Ignore
