@@ -13,23 +13,37 @@ public class TestUtils {
 	@Rule
 		public ExpectedException thrown = ExpectedException.none();
 
+	
 	@Test
-	public void testReverseByteArray(){
+	public void test_1_ReverseByteArray(){
 		
 		final byte[] arr = {'a','c','b','t','n','g'};
-		int len = 6;
 		int offset = 0;
-
-		Utils ut = new Utils();
+		int len = 6;
+		
+		//Utils ut = new Utils();
 		
 		final byte[] expectedArr = {'g','n','t','b','c','a'};
 		
-		ut.reverse(arr, offset, len);
-		//System.out.println("This is array:"+Arrays.toString(arr));
+		Utils.reverse(arr, offset, len);
 		assertTrue("Actual reversed array is different from Expected Array",Arrays.equals(expectedArr, arr));
 
 	}
 
+	@Test
+	public void test_2_ReverseOffsetNonZero(){
+		
+		final byte[] arr = {'a','c','b','t','n','g', 'A','t','c','T','G'};
+		int offset = 3;
+		int len = 6;
+		
+		final byte[] expectedArr = {'a','c','b','c','t','A','g','n','t','T','G'};
+		System.out.println("Printing array before calling reverse function"+Arrays.toString(arr));
+		Utils.reverse(arr, offset, len);
+		System.out.println("Printing array After calling reverse function"+Arrays.toString(arr));
+		assertTrue("Wrong Array Reversal",Arrays.equals(expectedArr, arr));
+
+	}
 	
 	@Test
 	public void testReverseByteArrayError(){
@@ -62,12 +76,12 @@ public class TestUtils {
 		final byte[] expectedArr = {'a','c','t','g','n','c','t','t','g','n','a','c','t','g'}; 
 
 		ut.reverse(arr, offset, len);
-		
+		//System.out.println("Printing array before calling reverse function"+Arrays.toString(arr));
 		assertTrue("Expected Array is not same as passed array.",Arrays.equals(expectedArr, arr));
 	
 	}
 
-	
+	@Ignore
 	@Test
 	public void testReverseWhenArrayShorterThenLen(){
 		thrown.expect(ArrayIndexOutOfBoundsException.class);
